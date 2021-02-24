@@ -1,0 +1,424 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Androidアプリとしてビルド · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.15">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="styles/website.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="page1.html">
+            
+                <a href="page1.html">
+            
+                    
+                    Androidアプリとしてビルド
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Androidアプリとしてビルド</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="androidアプリとしてビルド">Androidアプリとしてビルド</h1>
+<h2 id="android-build-supportモジュールの追加">Android Build Supportモジュールの追加</h2>
+<p><br></p>
+<p>今回は前回までで作成した3Dオブジェクトを実際に実機（Android）へVRアプリとしてビルドする手順を解説していきます。</p>
+<p>まずはUnityのプロジェクトをAndroid端末へビルドできるようにAndroidBuildSupportモジュールをインストールしましょう。<br>最初にUnityHubを開きます。</p>
+<p><br></p>
+<p><img src="img/image1-1.png" alt=""></p>
+<p>UnityHubを開いたら、左側の「インストール」を選択し、自分が現在VRアプリ制作で使用しているUnityのバージョンを見つけます。<br>Unityを１つしかインストールしていない場合はそちらを選択します。<br>そして点線アイコンをクリックし、「モジュールを加える」をクリックしてください。</p>
+<p><br></p>
+<p><img src="img/image1-2.png" alt=""></p>
+<p>そうすると、このような画面が表示されます。
+次にAndroidBuildSupportにチェックをつけて実行を選択してください。
+既にチェックが入っていてインストール済みの場合はこちらの作業はしなくて大丈夫です。</p>
+<p>実行すると、自動的にインストールが開始されます。<br>重いファイルですのでダウンロードとインストールにしばらく時間がかかると思いますが、中断せず終了するまで待ちましょう。</p>
+<p><br></p>
+<h2 id="android用にunityの設定を変更する">Android用にUnityの設定を変更する</h2>
+<p>AndroidBuildSupportモジュールのインストールが完了したら、プロジェクト画面からプロジェクトを開いてください。</p>
+<p><img src="img/image1-3.png" alt=""></p>
+<p>プロジェクトを開いたら、「File -&gt; Build&amp;Settings」を開き、PlatformからAndroidを選択し、右下の「SwitchPlatform」を選択します。  </p>
+<p>こちらはプロジェクトのサイズによって時間がかかる可能性があるのでしばらく待ちましょう。<br>UnityのロゴマークがAndroidの横につけば完了です。  </p>
+<p><br></p>
+<h3 id="cardboadをターゲットにする">Cardboadをターゲットにする</h3>
+<p><img src="img/image1-4.png" alt=""></p>
+<p>次に「PlayerSettings」を開き、Playerから「XRSettings」の項目を開きます。<br>そして、「Virtual Reality Supported」にチェックを入れ、VirtualRealitySDKsリストの「＋」アイコンをクリックし、リストに「Cardboad」を追加します。</p>
+<p>そして、「DepthFormat」を「24-bit depth|8-bit stencil」にしてください。</p>
+<p>DepthFormatは、Zバッファの深さを設定します。Unityは可視データをソートし、何が実際に画面にレンダリングされるかを決定します。</p>
+<p>次にAPIレベルを調整します。<br>Cardbordの最低限のプラットフォーム要件はAndroid5.0です。<br>Unityが正しいAPKを使用し、Androidの最新バージョンにアップグレードしたデバイスでのみ実行されるようにするには、MinimumAPILevelを変更する必要があります。</p>
+<p><br></p>
+<p><img src="img/image1-5.png" alt=""></p>
+<p>まずはそのままOtherSettingsを開きます。<br>そして、「GraphicsAPIs」のリストから「Vulkan」を削除してください。  </p>
+<p>削除の方法はVulkanを選択し、下にある「ー」のアイコンをクリックするだけです。<br>少し時間がかかるのですが、しばらく待っているとこちらのリストからVulkanが削除されます。</p>
+<p><br></p>
+<p><img src="img/image1-6.png" alt=""></p>
+<p>次にそのまま下にスクロールしていき、「MinimumAPILevel」と「TargetAPILevel」を確認してください。<br>こちらのMinimumAPILevelが「Android4.4(APILevel19)」になっていることを確認してください。4.4以下の場合はこちらを修正します。<br>また、TargetAPILevelが「Automatic」になっていることも確認してください。  </p>
+<p>ここまで完了したらSetting画面を閉じましょう。</p>
+<p><br></p>
+<h3 id="ガンマとリニアの違いについて">ガンマとリニアの違いについて</h3>
+<p>ガンマとリニアについての違いはUnityに限った話ではなく映像や写真を仕事で扱う方は知識としてあると思います。</p>
+<p>現在のUnityのプロジェクトでは滅多なことがない限り（ハードウェアがガンマ形式しかサポートしていないなど）基本的に「Linear」を使用します。</p>
+<p>Unityにおける２つの違いについて詳しく知りたい方は<a href="https://docs.unity3d.com/ja/2019.4/Manual/LinearRendering-LinearOrGammaWorkflow.html" target="_blank">こちら</a>の公式ドキュメントをご確認ください。</p>
+<p><br></p>
+<h2 id="ライトマップの作成">ライトマップの作成</h2>
+<p><img src="img/image1-7.png" alt=""></p>
+<p>次に「Window -&gt; Rendering -&gt; LightingSettings」を開き、そのウィンドウの右下にある「Generate Lighting」ボタンを押してください。<br>結構時間がかかるのですが、しばらく待っているとライトマップを作成することができます。</p>
+<p><br></p>
+<h3 id="ライトマップとは">ライトマップとは</h3>
+<p>ライトマップとは、高負荷である光と影の計算を事前に行い、その情報をテクスチャに書き込んでおく機能のことです。<br>ライトマップを作成することにより実行時の負荷を軽くすることができます。</p>
+<div class="point">
+    ライトマッピングは、シーンのサーフェスの明るさを事前計算し、チャートやライトマップに結果を保存して後で使用するための処理です。
+
+    Unity は プログレッシブライトマッパー と呼ばれるシステムを使用しています。プログレッシブライトマッパーは、メッシュ、マテリアル、テクスチャ、ライトを考慮しながら、シーンの設定に基づいてシーンのライトマップをベイクします。ライトマッピングはレンダリングエンジンの不可欠な部分です。ライトマップが作成されると、ゲームオブジェクトは自動的にそれらを使用します。
+</div>
+
+<p><br></p>
+<p><img src="img/image1-8.png" alt=""></p>
+<p>ここまでできたら実際に実行してみましょう。</p>
+<p>デフォルトの状態よりもだいぶ明るい雰囲気になり、PCへの負荷も減ったかと思います。<br>しかし、最初からついていたリフレクションプローブなども非アクティブにしたので鏡が反射しなくなっています。<br>ですので、次はこちらを修正しましょう。</p>
+<p><br></p>
+<h2 id="リフレクションプローブを適用させる">リフレクションプローブを適用させる</h2>
+<p><img src="img/image1-9.png" alt=""></p>
+<p>ヒエラルキーウィンドウから新規で「ReflectionProbe」を作成してください。<br>鏡からみた景色を表示したいので、位置を鏡と同じポイントにしてください。<br>そしてLightingSettingsから「GenerateLighting」をクリックすると、きちんと鏡のリフレクションプローブが反映されました。<br>実際に実行して確認してみましょう。</p>
+<p><br></p>
+<p><img src="img/image1-10.png" alt=""></p>
+<p>同様にバスルームの鏡用にもリフレクションプローブを作成し、GenerateLightingを実行してみましょう。</p>
+<p>若干周りの背景に対して反射している背景が大きいように感じるので、そういった場合はReflectionProbeの「BoxProjection」にチェックを入れてください。<br>BoxProjectionをOnにすると、カメラの位置が正しく考慮されて、家具などの写り込みの位置が正しく修正されます。</p>
+<p>変更したらインスペクターウィンドウのReflectionProbeコンポーネントのBakeをクリックしておきましょう。</p>
+<div class="point">
+    Box Projection オプションを使うと、プローブから限定した距離でリフレクションキューブマップを作成することができます。そのため、オブジェクトはキューブマップの壁からの距離に応じて異なるサイズの反射を表示できます。 周囲のキューブマップのサイズは、Box Size プロパティで指定されたプローブの有効範囲によって決まります。例えば、部屋の内部を映すプローブは、部屋の大きさに合わせてサイズを設定する必要があります。 Project Settings__　&gt; Graphics__　&gt; Tier Settings で __Box Projection__　をグローバルに有効にすることができます。ただし、無限投影が望ましい場合、特定のリフレクションプローブに対して、Reflection Probe インスペクターでオプションをオフにすることができます。
+</div>
+
+<p><br></p>
+<p><img src="img/image1-14.png" alt=""></p>
+<p>最後に部屋全体にもReflectionProbeを適用させたいので部屋の中心に新規でReflectionProbeを作成し、BoxProjectionにチェックを入れBakeをクリックしてください。</p>
+<p><br></p>
+<p><img src="img/image1-15.png" alt=""></p>
+<p>これで、このような細かな家具にも反射が適用されました。</p>
+<p><br></p>
+<h2 id="skyboxを適用させる">SkyBoxを適用させる</h2>
+<p><img src="img/image1-11.png" alt=""></p>
+<p>窓の外が何もない空間なので、SkyBoxを変更して少し雰囲気を出したいと思います。<br>AssetStoreを開き、検索バーに「skybox」と入力し検索してください。価格の部分で無料にチェックを入れると様々なSkyBoxが表示されると思いますので、任意のものを選択し、インポートしてください。<br>教材では「3D Skybox Pro」というアセットをインポートしました。</p>
+<p><br></p>
+<p><img src="img/image1-12.png" alt=""></p>
+<p>アセットに入っているSkybox用のマテリアルをシーンビューの何もない場所にドラッグ&amp;ドロップすると、このように窓の外の景色が変わるかと思います。</p>
+<p><br></p>
+<h2 id="ライティングの調整">ライティングの調整</h2>
+<p><img src="img/image1-13.png" alt=""></p>
+<p>既にライティングの設定が済んでいるアセットであればいいのですが、もしライティングがまだの場合は前回までの講習を参考に自分なりにライティングの設定をしてみましょう。<br>ライトの色や強度を変えてみたり、自然光を増やしたりするのもいいと思います。ライティングに関してはセンスや慣れといった部分が強いと思いますので、何度も自分の納得のいくまでトライ&amp;エラーを繰り返して学習してください。</p>
+<p>現在のライティングの正確な見た目を確認したい時はLightingSettingsの「GenerateLighting」をクリックしてください。  </p>
+<p><br></p>
+<h2 id="エフェクトの追加">エフェクトの追加</h2>
+<p>次にエフェクトを追加します。<br>エフェクトの追加方法は以前の講習教材を確認してください。<br>「Window -&gt; PackageManager」から「PostProcessing」をインポートし、Cameraに「Post-processing」を追加し、Layerを「Default」に、<br>新規オブジェクトを作成し、そちらに「Post-processVolume」をアタッチし、「IsGrobal」にチェックをつけて「New」を選択します。</p>
+<p>ここまでできたらあとはお好きなエフェクトを追加していってください。</p>
+<h3 id="エフェクトの種類">エフェクトの種類</h3>
+<p>簡単にエフェクトの解説をしていきます。</p>
+<hr>
+
+<h4 id="ambientocclusion">AmbientOcclusion</h4>
+<p>オブジェクトの角や隅などに影を落として「現実」のように見せる画面エフェクト。<br>部屋の隅などに影を落としてリアルな空間を演出できます。</p>
+<hr>
+
+<h4 id="autoexposure">AutoExposure</h4>
+<p>自動露出調整が可能なエフェクト。暗い部屋から明るい部屋に移動した際に起こる暗順応、明順応を表現できるエフェクトです。</p>
+<hr>
+
+<h4 id="bloom">Bloom</h4>
+<p>光を強調することのできるエフェクトです。暗い空間で特定の物を光らせたり、「ネオン」の表現が得意なエフェクトです。</p>
+<hr>
+
+<h4 id="chromaticaberration">ChromaticAberration</h4>
+<p>色収差を表現できるエフェクト</p>
+<hr>
+
+<h4 id="colorgrading">ColorGrading</h4>
+<p>色調補正機能</p>
+<hr>
+
+<h4 id="depth-of-field">Depth of Field</h4>
+<p>現実のカメラで撮影したようなピントを表現できます。（被写界深度）</p>
+<hr>
+
+<h4 id="grain">Grain</h4>
+<p>画面にノイズを付与できるエフェクトです。現実の暗い場所でノイズが乗りますがその効果を再現できます。</p>
+<hr>
+
+<h4 id="lensdistortion">LensDistortion</h4>
+<p>レンズの歪みを再現できるエフェクトです。魚眼レンズのような表現ができます。</p>
+<hr>
+
+<h4 id="motionblur">MotionBlur</h4>
+<p>動いている部分にブラーを付与するエフェクトです。スピード感などを表現するときに使用されます。</p>
+<hr>
+
+<h4 id="screenspacereflection">ScreenSpaceReflection</h4>
+<p>リアルタイムで物体の「反射」を表現できるエフェクトです。</p>
+<hr>
+
+<h4 id="vignette">Vignette</h4>
+<p>画面の端を暗くするエフェクトです。少しレトロな雰囲気を出したいときや空間を馴染ませる場合に使用します。</p>
+<p><br></p>
+<p><img src="img/image1-16.png" alt=""></p>
+<p>また、おそらくBloomをよく使用すると思うのですが、VR系のアプリを作る場合はBloomの「FastMode」にチェックを入れてください。<br>これはBloomの描画クオリティを下げてパフォーマンスを優先にします。こちらにチェックを入れて特に問題がなければ基本的にチェックを入れておくようにしてください。</p>
+<p>ここまで作り終わりましたらLightingSettingsの「GenerateLighting」をクリックして実際にシーンを実行して確認してください。</p>
+<p>特に問題がなければ忘れずに保存しておきましょう。</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Introduction">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Androidアプリとしてビルド","level":"1.2","depth":1,"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"page1.md","mtime":"2021-02-24T02:53:36.341Z","type":"markdown"},"gitbook":{"version":"3.6.15","time":"2021-02-24T02:53:54.604Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
