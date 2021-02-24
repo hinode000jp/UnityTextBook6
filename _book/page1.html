@@ -195,112 +195,61 @@
 <p>次にそのまま下にスクロールしていき、「MinimumAPILevel」と「TargetAPILevel」を確認してください。<br>こちらのMinimumAPILevelが「Android4.4(APILevel19)」になっていることを確認してください。4.4以下の場合はこちらを修正します。<br>また、TargetAPILevelが「Automatic」になっていることも確認してください。  </p>
 <p>ここまで完了したらSetting画面を閉じましょう。</p>
 <p><br></p>
-<h3 id="ガンマとリニアの違いについて">ガンマとリニアの違いについて</h3>
-<p>ガンマとリニアについての違いはUnityに限った話ではなく映像や写真を仕事で扱う方は知識としてあると思います。</p>
-<p>現在のUnityのプロジェクトでは滅多なことがない限り（ハードウェアがガンマ形式しかサポートしていないなど）基本的に「Linear」を使用します。</p>
-<p>Unityにおける２つの違いについて詳しく知りたい方は<a href="https://docs.unity3d.com/ja/2019.4/Manual/LinearRendering-LinearOrGammaWorkflow.html" target="_blank">こちら</a>の公式ドキュメントをご確認ください。</p>
+<h3 id="gvr-sdk-for-unityをインポート">GVR SDK for Unityをインポート</h3>
+<p>次にGoogleCardbordの開発キット「GVR SDK for Unity」をインポートします。</p>
+<p>これを利用すると、スマートフォンでの再生や目線での衝突判定ができるようになります。</p>
 <p><br></p>
-<h2 id="ライトマップの作成">ライトマップの作成</h2>
 <p><img src="img/image1-7.png" alt=""></p>
-<p>次に「Window -&gt; Rendering -&gt; LightingSettings」を開き、そのウィンドウの右下にある「Generate Lighting」ボタンを押してください。<br>結構時間がかかるのですが、しばらく待っているとライトマップを作成することができます。</p>
-<p><br></p>
-<h3 id="ライトマップとは">ライトマップとは</h3>
-<p>ライトマップとは、高負荷である光と影の計算を事前に行い、その情報をテクスチャに書き込んでおく機能のことです。<br>ライトマップを作成することにより実行時の負荷を軽くすることができます。</p>
-<div class="point">
-    ライトマッピングは、シーンのサーフェスの明るさを事前計算し、チャートやライトマップに結果を保存して後で使用するための処理です。
-
-    Unity は プログレッシブライトマッパー と呼ばれるシステムを使用しています。プログレッシブライトマッパーは、メッシュ、マテリアル、テクスチャ、ライトを考慮しながら、シーンの設定に基づいてシーンのライトマップをベイクします。ライトマッピングはレンダリングエンジンの不可欠な部分です。ライトマップが作成されると、ゲームオブジェクトは自動的にそれらを使用します。
-</div>
-
+<p>まずはブラウザで「GVR SDK for Unity」で検索してください。<br>そうすると、おそらく一番上の方に「googlevr〜　GitHub」という名前のページが出てくると思いますのでそこにアクセスします。  </p>
 <p><br></p>
 <p><img src="img/image1-8.png" alt=""></p>
-<p>ここまでできたら実際に実行してみましょう。</p>
-<p>デフォルトの状態よりもだいぶ明るい雰囲気になり、PCへの負荷も減ったかと思います。<br>しかし、最初からついていたリフレクションプローブなども非アクティブにしたので鏡が反射しなくなっています。<br>ですので、次はこちらを修正しましょう。</p>
+<p>少し下にスクロールすると、このようなReadmeが出てくるのでDownloadsの項目にある「releases」のリンクをクリックしてください。</p>
 <p><br></p>
-<h2 id="リフレクションプローブを適用させる">リフレクションプローブを適用させる</h2>
 <p><img src="img/image1-9.png" alt=""></p>
-<p>ヒエラルキーウィンドウから新規で「ReflectionProbe」を作成してください。<br>鏡からみた景色を表示したいので、位置を鏡と同じポイントにしてください。<br>そしてLightingSettingsから「GenerateLighting」をクリックすると、きちんと鏡のリフレクションプローブが反映されました。<br>実際に実行して確認してみましょう。</p>
+<p>そうすると、ダウンロードページにいくので、そこから「GoogleVRForUnity_1.200.1.unitypackage」というアセットがあるのでそちらをクリックしてダウンロードしましょう。  </p>
 <p><br></p>
 <p><img src="img/image1-10.png" alt=""></p>
-<p>同様にバスルームの鏡用にもリフレクションプローブを作成し、GenerateLightingを実行してみましょう。</p>
-<p>若干周りの背景に対して反射している背景が大きいように感じるので、そういった場合はReflectionProbeの「BoxProjection」にチェックを入れてください。<br>BoxProjectionをOnにすると、カメラの位置が正しく考慮されて、家具などの写り込みの位置が正しく修正されます。</p>
-<p>変更したらインスペクターウィンドウのReflectionProbeコンポーネントのBakeをクリックしておきましょう。</p>
-<div class="point">
-    Box Projection オプションを使うと、プローブから限定した距離でリフレクションキューブマップを作成することができます。そのため、オブジェクトはキューブマップの壁からの距離に応じて異なるサイズの反射を表示できます。 周囲のキューブマップのサイズは、Box Size プロパティで指定されたプローブの有効範囲によって決まります。例えば、部屋の内部を映すプローブは、部屋の大きさに合わせてサイズを設定する必要があります。 Project Settings__　&gt; Graphics__　&gt; Tier Settings で __Box Projection__　をグローバルに有効にすることができます。ただし、無限投影が望ましい場合、特定のリフレクションプローブに対して、Reflection Probe インスペクターでオプションをオフにすることができます。
+<p>ダウンロードが完了したらUnityに戻り、プロジェクトウィンドウからAssetsフォルダを選択し、右クリックで「ImportPackage-&gt; CustomPackage」を選択してください。</p>
+<p>そして、先ほどダウンロードした「GoogleVRForUnity_1.200.1.unitypackage」を選択しOpenをクリックします。  </p>
+<p><br></p>
+<p><img src="img/image1-11.png" alt=""></p>
+<p>全てにチェックが入っていることを確認し、Importをクリックすると、インポートが始まりプロジェクトウィンドウに「GoogleVR」が追加されます。</p>
+<div class="warning">
+    今回はこちらのGoogleVRSDKを利用しましたが、実は2019年年末以降に新規でCardbordSDKが発表され、現在はそちらに移行作業が進んでいます。
+    もし今後もモバイルへのビルドを行う予定がある場合は、ぜひそちらも試してみましょう。
 </div>
 
 <p><br></p>
+<h2 id="vr用プレイヤーを作成">VR用プレイヤーを作成</h2>
+<p>次にVR用のプレイヤー（視点操作）を作成します。</p>
+<p>現在はCapsuleを十字キーで動かし、マウスで視点を変更していますが、モバイルでは端末の傾き・方向に合わせて視点を変更しなければならないのでそれ専用のプレイヤーを新規で作成していきたいと思います。</p>
+<p><img src="img/image1-12.png" alt=""></p>
+<p>まずは新規で空のオブジェクトを作成し、名前を「Player」とします。</p>
+<p>座標はCapsuleと同じ位置に配置してください。</p>
+<p><br></p>
+<p><img src="img/image1-13.png" alt=""></p>
+<p>次に新規でCameraを作成し、Playerの子要素にして座標をリセットしてください。</p>
+<p>そしてCameraコンポーネントの「ClippingPlanes」の「Near」を「0.09」に変更してください。</p>
+<p>ClippingPlanesは、レンダリングを開始及び停止するカメラからの距離のことで、Nearは描画が行われるカメラに最も近い点を指します。</p>
+<p><br></p>
 <p><img src="img/image1-14.png" alt=""></p>
-<p>最後に部屋全体にもReflectionProbeを適用させたいので部屋の中心に新規でReflectionProbeを作成し、BoxProjectionにチェックを入れBakeをクリックしてください。</p>
+<p>次にプロジェクトウィンドウから「GoogleVR -&gt; Prefabs -&gt; GvrEditerEmulator」をヒエラルキーウィンドウにドラッグ&amp;ドロップしてください。</p>
+<p>この状態で一度実行してみましょう。</p>
+<p>Altキーを押しながらマウスを動かすと視点が移動し、Ctrlキーを押しながらマウスを動かすと視点が回転するかと思います。</p>
+<p>また、この時少し視点が低いと感じた場合はPlayerのY座標を少し上に修正してください。（1.7くらい）</p>
+<p><br></p>
+<h2 id="視点で移動できるようにする">視点で移動できるようにする</h2>
+<p>このままですと、同じ場所から移動できないので視点で移動できるようしたいと思います。</p>
+<p>方法は簡単で、移動用のスフィアを作成し、視点がそのスフィアと重なった時にその場所へ移動するという仕組みを作りたいと思います。</p>
 <p><br></p>
 <p><img src="img/image1-15.png" alt=""></p>
-<p>これで、このような細かな家具にも反射が適用されました。</p>
-<p><br></p>
-<h2 id="skyboxを適用させる">SkyBoxを適用させる</h2>
-<p><img src="img/image1-11.png" alt=""></p>
-<p>窓の外が何もない空間なので、SkyBoxを変更して少し雰囲気を出したいと思います。<br>AssetStoreを開き、検索バーに「skybox」と入力し検索してください。価格の部分で無料にチェックを入れると様々なSkyBoxが表示されると思いますので、任意のものを選択し、インポートしてください。<br>教材では「3D Skybox Pro」というアセットをインポートしました。</p>
-<p><br></p>
-<p><img src="img/image1-12.png" alt=""></p>
-<p>アセットに入っているSkybox用のマテリアルをシーンビューの何もない場所にドラッグ&amp;ドロップすると、このように窓の外の景色が変わるかと思います。</p>
-<p><br></p>
-<h2 id="ライティングの調整">ライティングの調整</h2>
-<p><img src="img/image1-13.png" alt=""></p>
-<p>既にライティングの設定が済んでいるアセットであればいいのですが、もしライティングがまだの場合は前回までの講習を参考に自分なりにライティングの設定をしてみましょう。<br>ライトの色や強度を変えてみたり、自然光を増やしたりするのもいいと思います。ライティングに関してはセンスや慣れといった部分が強いと思いますので、何度も自分の納得のいくまでトライ&amp;エラーを繰り返して学習してください。</p>
-<p>現在のライティングの正確な見た目を確認したい時はLightingSettingsの「GenerateLighting」をクリックしてください。  </p>
-<p><br></p>
-<h2 id="エフェクトの追加">エフェクトの追加</h2>
-<p>次にエフェクトを追加します。<br>エフェクトの追加方法は以前の講習教材を確認してください。<br>「Window -&gt; PackageManager」から「PostProcessing」をインポートし、Cameraに「Post-processing」を追加し、Layerを「Default」に、<br>新規オブジェクトを作成し、そちらに「Post-processVolume」をアタッチし、「IsGrobal」にチェックをつけて「New」を選択します。</p>
-<p>ここまでできたらあとはお好きなエフェクトを追加していってください。</p>
-<h3 id="エフェクトの種類">エフェクトの種類</h3>
-<p>簡単にエフェクトの解説をしていきます。</p>
-<hr>
-
-<h4 id="ambientocclusion">AmbientOcclusion</h4>
-<p>オブジェクトの角や隅などに影を落として「現実」のように見せる画面エフェクト。<br>部屋の隅などに影を落としてリアルな空間を演出できます。</p>
-<hr>
-
-<h4 id="autoexposure">AutoExposure</h4>
-<p>自動露出調整が可能なエフェクト。暗い部屋から明るい部屋に移動した際に起こる暗順応、明順応を表現できるエフェクトです。</p>
-<hr>
-
-<h4 id="bloom">Bloom</h4>
-<p>光を強調することのできるエフェクトです。暗い空間で特定の物を光らせたり、「ネオン」の表現が得意なエフェクトです。</p>
-<hr>
-
-<h4 id="chromaticaberration">ChromaticAberration</h4>
-<p>色収差を表現できるエフェクト</p>
-<hr>
-
-<h4 id="colorgrading">ColorGrading</h4>
-<p>色調補正機能</p>
-<hr>
-
-<h4 id="depth-of-field">Depth of Field</h4>
-<p>現実のカメラで撮影したようなピントを表現できます。（被写界深度）</p>
-<hr>
-
-<h4 id="grain">Grain</h4>
-<p>画面にノイズを付与できるエフェクトです。現実の暗い場所でノイズが乗りますがその効果を再現できます。</p>
-<hr>
-
-<h4 id="lensdistortion">LensDistortion</h4>
-<p>レンズの歪みを再現できるエフェクトです。魚眼レンズのような表現ができます。</p>
-<hr>
-
-<h4 id="motionblur">MotionBlur</h4>
-<p>動いている部分にブラーを付与するエフェクトです。スピード感などを表現するときに使用されます。</p>
-<hr>
-
-<h4 id="screenspacereflection">ScreenSpaceReflection</h4>
-<p>リアルタイムで物体の「反射」を表現できるエフェクトです。</p>
-<hr>
-
-<h4 id="vignette">Vignette</h4>
-<p>画面の端を暗くするエフェクトです。少しレトロな雰囲気を出したいときや空間を馴染ませる場合に使用します。</p>
+<p>まずはプロジェクトウィンドウから「GoogleVR -&gt; Prefabs -&gt; EventSystem -&gt; GvrEventSystem」をヒエラルキーウィンドウにドラッグ&amp;ドロップします。</p>
+<p>次に「GoogleVR -&gt; Prefabs -&gt; Cardbord -&gt; GvrReticlePointer」をヒエラルキーのCameraにドラッグ&amp;ドロップして子要素にしてください。<br>そしてGvrReticlePointerのPositionを全て０であることを確認し（０でなかったら０にしておく）、「Override Pointer Camera」の部分にヒエラルキーからCameraをドラッグ&amp;ドロップしてください。</p>
+<p>GvrEventSystemは視線の衝突判定でのイベントができるようになり、GvrReticlePointerはVR用視点の中心を点で表示させることができます。</p>
 <p><br></p>
 <p><img src="img/image1-16.png" alt=""></p>
-<p>また、おそらくBloomをよく使用すると思うのですが、VR系のアプリを作る場合はBloomの「FastMode」にチェックを入れてください。<br>これはBloomの描画クオリティを下げてパフォーマンスを優先にします。こちらにチェックを入れて特に問題がなければ基本的にチェックを入れておくようにしてください。</p>
-<p>ここまで作り終わりましたらLightingSettingsの「GenerateLighting」をクリックして実際にシーンを実行して確認してください。</p>
+<p>次にヒエラルキーでCameraを選択し、インスペクターウィンドウから「Add Component -&gt; Gvr Pointer Physics Raycast」を追加してください。</p>
+<p>これで視点での衝突判定ができるようになりました。</p>
 <p>特に問題がなければ忘れずに保存しておきましょう。</p>
 
                                 
@@ -341,7 +290,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Androidアプリとしてビルド","level":"1.2","depth":1,"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"page1.md","mtime":"2021-02-24T02:53:36.341Z","type":"markdown"},"gitbook":{"version":"3.6.15","time":"2021-02-24T02:53:54.604Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Androidアプリとしてビルド","level":"1.2","depth":1,"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"page1.md","mtime":"2021-02-24T06:01:31.665Z","type":"markdown"},"gitbook":{"version":"3.6.15","time":"2021-02-24T06:01:44.236Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
