@@ -187,4 +187,84 @@ GvrEventSystemは視線の衝突判定でのイベントができるようにな
 
 これで視点での衝突判定ができるようになりました。
 
-特に問題がなければ忘れずに保存しておきましょう。
+<br>
+
+### 視点移動させるスフィアの作成
+
+次に視点が合ったらその場所に移動できるスフィアを作成します。
+
+<br>
+
+![](img/image1-17.png)
+
+新規でスフィアを作成し、任意の場所に配置します。
+そして大きさを全て0.4程度にしてください。
+
+次に新規でマテリアルを作成し、Materialsフォルダを作成し格納します。  
+色はなんでも構わないのですが、わかりやすい色にしておき、先ほど作成したスフィアにアタッチしてください。
+
+<br>
+
+![](img/image1-18.png)
+
+次に、Scriptsフォルダの中に新規で「VRController」という名前のスクリプトを作成してVisualStudioで開きましょう。
+
+そしてコードを以下のように変更してください。
+
+```c#
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class VRController : MonoBehaviour
+{
+    public GameObject player;
+    public Camera mainCamera;
+    private float timeCount;
+    void Update()
+    {
+        RaycastHit hitObject;
+        Ray ray = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
+        if (Physics.Raycast(ray, out hitObject))
+        {
+            if (hitObject.collider.CompareTag("Teleport"))
+            {
+                timeCount += 0.01f;
+                if (timeCount > 2f)
+                {
+                    player.transform.position = new Vector3(hitObject.point.x, player.transform.position.y, hitObject.point.z);
+                    timeCount = 0f;
+                }
+            }
+            else
+            {
+                timeCount = 0f;
+            }
+        }
+    }
+}
+```
+
+上のコードの意味は若干複雑なので、簡単にどういう意味かを説明すると、「カメラの視点の先に「Teleport」という名前のタグがついたオブジェクトが合った場合、タイマーを加算し、もしタイマーの値が２以上になった場合はそのオブジェクトの場所にPlayerを移動させる」という意味になっています。
+
+<br>
+
+![](img/image1-19.png)
+
+コードを保存したらUnityに戻り、GameObjectにVRControllerスクリプトをドラッグ&ドロップでアタッチしてください。
+
+そしてGameObjectのVRControllerの項目のPlayerの部分にヒエラルキーからPlayerを、MainCameraの項目にPlayerの子要素のCameraをドラッグ&ドロップして入れてください。
+
+<br>
+
+![](img/image1-20.png)
+
+次にSphereのインスペクターウィンドウから「Teleport」という名前のTagを新規で作成し、スフィアにつけてください。  
+そしてそのスフィアを部屋の任意の場所に複製し、配置します。
+
+
+これでポインター（視点）がスフィアと重なったタイミングでタイマーが動き、タイマーが２以上になった場合そこへテレポートするようになります。
+
+こちらを保存して実行してみましょう。
+
+画面に表示されている白い点をスフィアに一定時間合わせるとその場所にテレポートできているかと思います。

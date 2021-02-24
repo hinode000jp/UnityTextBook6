@@ -250,7 +250,61 @@
 <p><img src="img/image1-16.png" alt=""></p>
 <p>次にヒエラルキーでCameraを選択し、インスペクターウィンドウから「Add Component -&gt; Gvr Pointer Physics Raycast」を追加してください。</p>
 <p>これで視点での衝突判定ができるようになりました。</p>
-<p>特に問題がなければ忘れずに保存しておきましょう。</p>
+<p><br></p>
+<h3 id="視点移動させるスフィアの作成">視点移動させるスフィアの作成</h3>
+<p>次に視点が合ったらその場所に移動できるスフィアを作成します。</p>
+<p><br></p>
+<p><img src="img/image1-17.png" alt=""></p>
+<p>新規でスフィアを作成し、任意の場所に配置します。
+そして大きさを全て0.4程度にしてください。</p>
+<p>次に新規でマテリアルを作成し、Materialsフォルダを作成し格納します。<br>色はなんでも構わないのですが、わかりやすい色にしておき、先ほど作成したスフィアにアタッチしてください。</p>
+<p><br></p>
+<p><img src="img/image1-18.png" alt=""></p>
+<p>次に、Scriptsフォルダの中に新規で「VRController」という名前のスクリプトを作成してVisualStudioで開きましょう。</p>
+<p>そしてコードを以下のように変更してください。</p>
+<pre><code class="lang-c#"><span class="hljs-keyword">using</span> System.Collections;
+<span class="hljs-keyword">using</span> System.Collections.Generic;
+<span class="hljs-keyword">using</span> UnityEngine;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">VRController</span> : <span class="hljs-title">MonoBehaviour</span>
+{
+    <span class="hljs-keyword">public</span> GameObject player;
+    <span class="hljs-keyword">public</span> Camera mainCamera;
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">float</span> timeCount;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Update</span>(<span class="hljs-params"></span>)</span>
+    {
+        RaycastHit hitObject;
+        Ray ray = <span class="hljs-keyword">new</span> Ray(mainCamera.transform.position, mainCamera.transform.forward);
+        <span class="hljs-keyword">if</span> (Physics.Raycast(ray, <span class="hljs-keyword">out</span> hitObject))
+        {
+            <span class="hljs-keyword">if</span> (hitObject.collider.CompareTag(<span class="hljs-string">&quot;Teleport&quot;</span>))
+            {
+                timeCount += <span class="hljs-number">0.01f</span>;
+                <span class="hljs-keyword">if</span> (timeCount &gt; <span class="hljs-number">2f</span>)
+                {
+                    player.transform.position = <span class="hljs-keyword">new</span> Vector3(hitObject.point.x, player.transform.position.y, hitObject.point.z);
+                    timeCount = <span class="hljs-number">0f</span>;
+                }
+            }
+            <span class="hljs-keyword">else</span>
+            {
+                timeCount = <span class="hljs-number">0f</span>;
+            }
+        }
+    }
+}
+</code></pre>
+<p>上のコードの意味は若干複雑なので、簡単にどういう意味かを説明すると、「カメラの視点の先に「Teleport」という名前のタグがついたオブジェクトが合った場合、タイマーを加算し、もしタイマーの値が２以上になった場合はそのオブジェクトの場所にPlayerを移動させる」という意味になっています。</p>
+<p><br></p>
+<p><img src="img/image1-19.png" alt=""></p>
+<p>コードを保存したらUnityに戻り、GameObjectにVRControllerスクリプトをドラッグ&amp;ドロップでアタッチしてください。</p>
+<p>そしてGameObjectのVRControllerの項目のPlayerの部分にヒエラルキーからPlayerを、MainCameraの項目にPlayerの子要素のCameraをドラッグ&amp;ドロップして入れてください。</p>
+<p><br></p>
+<p><img src="img/image1-20.png" alt=""></p>
+<p>次にSphereのインスペクターウィンドウから「Teleport」という名前のTagを新規で作成し、スフィアにつけてください。<br>そしてそのスフィアを部屋の任意の場所に複製し、配置します。</p>
+<p>これでポインター（視点）がスフィアと重なったタイミングでタイマーが動き、タイマーが２以上になった場合そこへテレポートするようになります。</p>
+<p>こちらを保存して実行してみましょう。</p>
+<p>画面に表示されている白い点をスフィアに一定時間合わせるとその場所にテレポートできているかと思います。</p>
 
                                 
                                 </section>
@@ -290,7 +344,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Androidアプリとしてビルド","level":"1.2","depth":1,"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"page1.md","mtime":"2021-02-24T06:01:31.665Z","type":"markdown"},"gitbook":{"version":"3.6.15","time":"2021-02-24T06:01:44.236Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Androidアプリとしてビルド","level":"1.2","depth":1,"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"page1.md","mtime":"2021-02-24T10:14:05.737Z","type":"markdown"},"gitbook":{"version":"3.6.15","time":"2021-02-24T10:14:18.274Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -342,10 +396,6 @@
     </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
-    
-        
-        <script src="gitbook/gitbook-plugin-livereload/plugin.js"></script>
-        
     
         
         <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
