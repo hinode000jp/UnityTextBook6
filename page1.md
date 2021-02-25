@@ -268,3 +268,73 @@ public class VRController : MonoBehaviour
 こちらを保存して実行してみましょう。
 
 画面に表示されている白い点をスフィアに一定時間合わせるとその場所にテレポートできているかと思います。
+
+<br>
+
+## 終了ポイントの作成
+
+テレポートは完了したので、次はアプリケーションを終了させるオブジェクトを追加します。
+
+![](img/image1-21.png)
+
+まずは新規でCubeを作成し、名前を「Quit」としてください。  
+次にそのCubeを任意の場所に配置してください。大きさも自由に変更してもらって構いません。
+
+そしてMaterialを追加し、任意の色にします。
+
+最後に「Quit」という新規タグを作成しこちらのCubeにつけてください。
+
+<br>
+
+次にVRControllerをVisualStudioで開き、コードを以下のように変更してください。
+
+```c#
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class VRController : MonoBehaviour
+{
+    public GameObject player;
+    public Camera mainCamera;
+    private float timeCount;
+    void Update()
+    {
+        RaycastHit hitObject;
+        Ray ray = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
+        if (Physics.Raycast(ray, out hitObject))
+        {
+            if (hitObject.collider.CompareTag("Teleport"))
+            {
+                timeCount += 0.01f;
+                if (timeCount > 2f)
+                {
+                    player.transform.position = new Vector3(hitObject.point.x, player.transform.position.y, hitObject.point.z);
+                    timeCount = 0f;
+                }
+            }
+            else
+            {
+                timeCount = 0f;
+            }
+            if (hitObject.collider.CompareTag("Quit"))
+            {
+                Application.Quit();
+            }
+        }
+    }
+}
+```
+
+
+<br>
+
+コードを変更したら保存してunityに戻りましょう。
+
+カメラを新規で追加したのでPostProcessingが有効になっていないので、VR用のカメラの方にもPostProcessingLayerを追加してください。
+
+
+<br>
+
+## アプリケーションをモバイルにビルドする
+
