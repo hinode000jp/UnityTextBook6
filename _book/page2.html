@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Androidアプリとしてビルド · HonKit</title>
+        <title>VRメニューの作成 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.6.15">
@@ -58,10 +58,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="page2.html" />
     
-    
-    <link rel="prev" href="./" />
+    <link rel="prev" href="page1.html" />
     
 
     </head>
@@ -103,7 +101,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="page1.html">
+        <li class="chapter " data-level="1.2" data-path="page1.html">
             
                 <a href="page1.html">
             
@@ -116,7 +114,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="page2.html">
+        <li class="chapter active" data-level="1.3" data-path="page2.html">
             
                 <a href="page2.html">
             
@@ -159,7 +157,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Androidアプリとしてビルド</a>
+        <a href="." >VRメニューの作成</a>
     </h1>
 </div>
 
@@ -174,33 +172,21 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="androidアプリとしてビルド">Androidアプリとしてビルド</h1>
-<h2 id="android-build-supportモジュールの追加">Android Build Supportモジュールの追加</h2>
+                                <h1 id="vrメニューの作成">VRメニューの作成</h1>
+<h2 id="新規シーンの作成">新規シーンの作成</h2>
 <p><br></p>
-<p>今回は前回までで作成した3Dオブジェクトを実際に実機（Android）へVRアプリとしてビルドする手順を解説していきます。</p>
-<p>まずはUnityのプロジェクトをAndroid端末へビルドできるようにAndroidBuildSupportモジュールをインストールしましょう。<br>最初にUnityHubを開きます。</p>
+<p>今回は前回までに作成したVRアプリケーションにUIによる画面遷移機能の実装をしていきたいと思います。</p>
+<p><img src="img/image2-1.png" alt=""></p>
+<p>まずは前回までに作成したUnityプロジェクトを開きましょう。</p>
 <p><br></p>
-<p><img src="img/image1-1.png" alt=""></p>
-<p>UnityHubを開いたら、左側の「インストール」を選択し、自分が現在VRアプリ制作で使用しているUnityのバージョンを見つけます。<br>Unityを１つしかインストールしていない場合はそちらを選択します。<br>そして点線アイコンをクリックし、「モジュールを加える」をクリックしてください。</p>
+<p><img src="img/image2-2.png" alt=""></p>
+<p>Unityのプロジェクトを開いたら、新規でシーンを作成し、名前を「TitleScene」としてください。<br>シーンの作成方法などは前回までの教材を参考にしてください。</p>
 <p><br></p>
-<p><img src="img/image1-2.png" alt=""></p>
-<p>そうすると、このような画面が表示されます。
-次にAndroidBuildSupportにチェックをつけて実行を選択してください。
-既にチェックが入っていてインストール済みの場合はこちらの作業はしなくて大丈夫です。</p>
-<p>実行すると、自動的にインストールが開始されます。<br>重いファイルですのでダウンロードとインストールにしばらく時間がかかると思いますが、中断せず終了するまで待ちましょう。</p>
+<p><img src="img/image2-3.png" alt=""></p>
 <p><br></p>
-<h2 id="android用にunityの設定を変更する">Android用にUnityの設定を変更する</h2>
-<p>AndroidBuildSupportモジュールのインストールが完了したら、プロジェクト画面からプロジェクトを開いてください。</p>
-<p><img src="img/image1-3.png" alt=""></p>
-<p>プロジェクトを開いたら、「File -&gt; Build&amp;Settings」を開き、PlatformからAndroidを選択し、右下の「SwitchPlatform」を選択します。  </p>
-<p>こちらはプロジェクトのサイズによって時間がかかる可能性があるのでしばらく待ちましょう。<br>UnityのロゴマークがAndroidの横につけば完了です。  </p>
-<p><br></p>
-<h3 id="cardboadをターゲットにする">Cardboadをターゲットにする</h3>
-<p><img src="img/image1-4.png" alt=""></p>
-<p>次に「PlayerSettings」を開き、Playerから「XRSettings」の項目を開きます。<br>そして、「Virtual Reality Supported」にチェックを入れ、VirtualRealitySDKsリストの「＋」アイコンをクリックし、リストに「Cardboad」を追加します。</p>
-<p>そして、「DepthFormat」を「24-bit depth|8-bit stencil」にしてください。</p>
-<p>DepthFormatは、Zバッファの深さを設定します。Unityは可視データをソートし、何が実際に画面にレンダリングされるかを決定します。</p>
-<p>次にAPIレベルを調整します。<br>Cardbordの最低限のプラットフォーム要件はAndroid5.0です。<br>Unityが正しいAPKを使用し、Androidの最新バージョンにアップグレードしたデバイスでのみ実行されるようにするには、MinimumAPILevelを変更する必要があります。</p>
+<p><img src="img/image2-4.png" alt=""></p>
+<p>この状態だとCanvasが画面上に固定されているので、VRで左右を見ようとしてもCanvasが常に画面の中央についてきてしまいます。<br>これを解消するために、CanvasのインスペクターウィンドウのCanvasコンポーネントの「Renderモード」を「World Space」に変更してください。</p>
+<p>これでCanvasは初期の位置に固定され、左右を見回せるようになります。</p>
 <p><br></p>
 <p><img src="img/image1-5.png" alt=""></p>
 <p>まずはそのままOtherSettingsを開きます。<br>そして、「GraphicsAPIs」のリストから「Vulkan」を削除してください。  </p>
@@ -413,14 +399,10 @@
 
             
                 
-                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Introduction">
+                <a href="page1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Androidアプリとしてビルド">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="page2.html" class="navigation navigation-next " aria-label="Next page: VRメニューの作成">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -429,7 +411,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Androidアプリとしてビルド","level":"1.2","depth":1,"next":{"title":"VRメニューの作成","level":"1.3","depth":1,"path":"page2.md","ref":"./page2.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"page1.md","mtime":"2021-02-25T04:46:53.724Z","type":"markdown"},"gitbook":{"version":"3.6.15","time":"2021-03-05T07:16:12.380Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"VRメニューの作成","level":"1.3","depth":1,"previous":{"title":"Androidアプリとしてビルド","level":"1.2","depth":1,"path":"page1.md","ref":"./page1.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"page2.md","mtime":"2021-03-05T07:15:55.716Z","type":"markdown"},"gitbook":{"version":"3.6.15","time":"2021-03-05T07:16:12.380Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
