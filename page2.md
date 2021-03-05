@@ -20,6 +20,7 @@ Unityのプロジェクトを開いたら、新規でシーンを作成し、名
 <br>
 
 ![](img/image2-3.png)
+次にヒエラルキーウィンドウからUIパーツの「Panel」と「Button」を配置します。Canvasは上から下の順にコンポーネントを描画するので、必ず「Plane → Button」の順番にしてください。
 
 <br>
 
@@ -32,312 +33,196 @@ Unityのプロジェクトを開いたら、新規でシーンを作成し、名
 
 <br>
 
-![](img/image1-5.png)
+![](img/image2-5.png)
 
-まずはそのままOtherSettingsを開きます。  
-そして、「GraphicsAPIs」のリストから「Vulkan」を削除してください。  
-
-削除の方法はVulkanを選択し、下にある「ー」のアイコンをクリックするだけです。  
-少し時間がかかるのですが、しばらく待っているとこちらのリストからVulkanが削除されます。
-
-<br>
-
-![](img/image1-6.png)
-
-次にそのまま下にスクロールしていき、「MinimumAPILevel」と「TargetAPILevel」を確認してください。  
-こちらのMinimumAPILevelが「Android4.4(APILevel19)」になっていることを確認してください。4.4以下の場合はこちらを修正します。  
-また、TargetAPILevelが「Automatic」になっていることも確認してください。  
-
-ここまで完了したらSetting画面を閉じましょう。
+次にCanvasの「RectTransform」を上の画像のように変更してください。  
+こちらはある程度見えやすいように配置しているだけなので、配置や大きさは自由に変更してもらって構いません。  
+PosX：0  
+PosY：0  
+PosZ：280  
+Width：1200  
+Height：600
 
 <br>
 
-### GVR SDK for Unityをインポート
+![](img/image2-6.png)
 
-次にGoogleCardbordの開発キット「GVR SDK for Unity」をインポートします。
+次にPanelも上の画像のような値に変更してください。  
+Panelを置くことでボタンが背景に溶け込まずに視認できます。（後でSkyBox等でボタンが見えにくくなるため）  
 
-これを利用すると、スマートフォンでの再生や目線での衝突判定ができるようになります。
-
-<br>
-
-![](img/image1-7.png)
-
-まずはブラウザで「GVR SDK for Unity」で検索してください。  
-そうすると、おそらく一番上の方に「googlevr〜　GitHub」という名前のページが出てくると思いますのでそこにアクセスします。  
 
 <br>
 
-![](img/image1-8.png)
+![](img/image2-7.png)
 
-少し下にスクロールすると、このようなReadmeが出てくるのでDownloadsの項目にある「releases」のリンクをクリックしてください。
-
-<br>
-
-![](img/image1-9.png)
-
-そうすると、ダウンロードページにいくので、そこから「GoogleVRForUnity_1.200.1.unitypackage」というアセットがあるのでそちらをクリックしてダウンロードしましょう。  
+次にボタンの位置や大きさも上の画像を参考にちょうどいい場所に配置してください。  
+PosY : -50  
+Width : 160  
+Height : 40  
 
 <br>
 
-![](img/image1-10.png)
+![](img/image2-8.png)
 
-ダウンロードが完了したらUnityに戻り、プロジェクトウィンドウからAssetsフォルダを選択し、右クリックで「ImportPackage-> CustomPackage」を選択してください。
+最後にButton内のテキストを書き換えます。今回は「VR空間へ」というふうにしました。
 
-そして、先ほどダウンロードした「GoogleVRForUnity_1.200.1.unitypackage」を選択しOpenをクリックします。  
-
-<br>
-
-![](img/image1-11.png)
-
-全てにチェックが入っていることを確認し、Importをクリックすると、インポートが始まりプロジェクトウィンドウに「GoogleVR」が追加されます。
-
-<div class="warning">
-    今回はこちらのGoogleVRSDKを利用しましたが、実は2019年年末以降に新規でCardbordSDKが発表され、現在はそちらに移行作業が進んでいます。
-    もし今後もモバイルへのビルドを行う予定がある場合は、ぜひそちらも試してみましょう。
-</div>
+これでUIパーツの配置は完了です。  
+追加でタイトル等を配置したい場合は各自自由に配置してみてください。
 
 <br>
 
 ## VR用プレイヤーを作成
 
-次にVR用のプレイヤー（視点操作）を作成します。
+次にVR用のプレイヤーを作成します。
 
-現在はCapsuleを十字キーで動かし、マウスで視点を変更していますが、モバイルでは端末の傾き・方向に合わせて視点を変更しなければならないのでそれ専用のプレイヤーを新規で作成していきたいと思います。
+今回は特に移動させる必要がないので、単純にデバイスの傾きで視点操作ができるようにしましょう。
 
-![](img/image1-12.png)
-
-まずは新規で空のオブジェクトを作成し、名前を「Player」とします。
-
-座標はCapsuleと同じ位置に配置してください。
+やり方に関しては簡単に解説を記述しますが、詳しくは前回までの教材を参考にしてください。
 
 <br>
 
-![](img/image1-13.png)
+- まずは新規で空のオブジェクトを作成し、名前を「Player」とします。
 
-次に新規でCameraを作成し、Playerの子要素にして座標をリセットしてください。
+- 次に現在あるMainCameraをPlayerの子要素にして座標をリセットしてください。
 
-そしてCameraコンポーネントの「ClippingPlanes」の「Near」を「0.09」に変更してください。
+- そしてCameraコンポーネントの「ClippingPlanes」の「Near」を「0.09」に変更します。
 
-ClippingPlanesは、レンダリングを開始及び停止するカメラからの距離のことで、Nearは描画が行われるカメラに最も近い点を指します。
+- 次にプロジェクトウィンドウから「GoogleVR -> Prefabs -> GvrEditerEmulator」をヒエラルキーウィンドウにドラッグ&ドロップします。
 
-<br>
+- プロジェクトウィンドウから「GoogleVR -> Prefabs -> EventSystem -> GvrEventSystem」をヒエラルキーウィンドウにドラッグ&ドロップします。
 
-![](img/image1-14.png)
+- 次に「GoogleVR -> Prefabs -> Cardbord -> GvrReticlePointer」をヒエラルキーのMainCameraにドラッグ&ドロップして子要素にしてください。  
+- そしてGvrReticlePointerのPositionを全て０であることを確認し（０でなかったら０にしておく）、「Override Pointer Camera」の部分にヒエラルキーからMainCameraをドラッグ&ドロップします。
 
-次にプロジェクトウィンドウから「GoogleVR -> Prefabs -> GvrEditerEmulator」をヒエラルキーウィンドウにドラッグ&ドロップしてください。
+- 次にヒエラルキーでMainCameraを選択し、インスペクターウィンドウから「Add Component -> GoogleVR -> Gvr Pointer Physics Raycast」を追加してください
 
-この状態で一度実行してみましょう。
+![](img/image2-9.png)
 
-Altキーを押しながらマウスを動かすと視点が移動し、Ctrlキーを押しながらマウスを動かすと視点が回転するかと思います。
+ここまでできた方は一度Unityを実行してみましょう。CtrlキーまたはOptionキーを押しながらマウスを移動させるときちんとUIパーツを固定させたまま視点が移動しているかと思います。  
 
-また、この時少し視点が低いと感じた場合はPlayerのY座標を少し上に修正してください。（1.7くらい）
-
-<br>
-
-## 視点で移動できるようにする
-
-このままですと、同じ場所から移動できないので視点で移動できるようしたいと思います。
-
-方法は簡単で、移動用のスフィアを作成し、視点がそのスフィアと重なった時にその場所へ移動するという仕組みを作りたいと思います。
 
 <br>
 
-![](img/image1-15.png)
+## 画面遷移用のスクリプトを作成
 
-まずはプロジェクトウィンドウから「GoogleVR -> Prefabs -> EventSystem -> GvrEventSystem」をヒエラルキーウィンドウにドラッグ&ドロップします。
+次にボタンに視点を当てたらVR空間へ画面遷移するようにします。
 
-次に「GoogleVR -> Prefabs -> Cardbord -> GvrReticlePointer」をヒエラルキーのCameraにドラッグ&ドロップして子要素にしてください。  
-そしてGvrReticlePointerのPositionを全て０であることを確認し（０でなかったら０にしておく）、「Override Pointer Camera」の部分にヒエラルキーからCameraをドラッグ&ドロップしてください。
+色々方法はあるのですが、今回はスクリプトから操作していきたいと思います。
 
-GvrEventSystemは視線の衝突判定でのイベントができるようになり、GvrReticlePointerはVR用視点の中心を点で表示させることができます。
+まずは新規スクリプトを作成し、名前を「ButtonController」としてください。
 
-<br>
-
-![](img/image1-16.png)
-
-次にヒエラルキーでCameraを選択し、インスペクターウィンドウから「Add Component -> Gvr Pointer Physics Raycast」を追加してください。
-
-これで視点での衝突判定ができるようになりました。
-
-<br>
-
-### 視点移動させるスフィアの作成
-
-次に視点が合ったらその場所に移動できるスフィアを作成します。
-
-<br>
-
-![](img/image1-17.png)
-
-新規でスフィアを作成し、任意の場所に配置します。
-そして大きさを全て0.4程度にしてください。
-
-次に新規でマテリアルを作成し、Materialsフォルダを作成し格納します。  
-色はなんでも構わないのですが、わかりやすい色にしておき、先ほど作成したスフィアにアタッチしてください。
-
-<br>
-
-![](img/image1-18.png)
-
-次に、Scriptsフォルダの中に新規で「VRController」という名前のスクリプトを作成してVisualStudioで開きましょう。
-
-そしてコードを以下のように変更してください。
+そして新規スクリプトをVisualStudioで開き、コードを以下のように変更してください。
 
 ```c#
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class VRController : MonoBehaviour
+public class ButtonController : MonoBehaviour
 {
     public GameObject player;
     public Camera mainCamera;
+    public Button startButton;
+    public Text startText;
+
     private float timeCount;
+
     void Update()
     {
         RaycastHit hitObject;
         Ray ray = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
         if (Physics.Raycast(ray, out hitObject))
         {
-            if (hitObject.collider.CompareTag("Teleport"))
+            if (hitObject.collider.CompareTag("StartButton"))
             {
+                startButton.GetComponent<Image>().color = Color.red;
+                startText.GetComponent<Text>().color = Color.white;
                 timeCount += 0.01f;
-                if (timeCount > 2f)
+                if (timeCount > 1f)
                 {
-                    player.transform.position = new Vector3(hitObject.point.x, player.transform.position.y, hitObject.point.z);
-                    timeCount = 0f;
+                    SceneManager.LoadScene("WalkScene");
                 }
             }
             else
             {
                 timeCount = 0f;
+                startButton.GetComponent<Image>().color = Color.white;
+                startText.GetComponent<Text>().color = Color.black;
             }
         }
     }
 }
 ```
 
-上のコードの意味は若干複雑なので、簡単にどういう意味かを説明すると、「カメラの視点の先に「Teleport」という名前のタグがついたオブジェクトが合った場合、タイマーを加算し、もしタイマーの値が２以上になった場合はそのオブジェクトの場所にPlayerを移動させる」という意味になっています。
+こちらのコードの内容に関してはほぼ前回のコードと同じですので解説は省きます。
+
+詳しく知りたい方は前回までの教科書を確認してください。
+
+今回は追加でボタンに視点が合ったタイミングでボタンの色とテキストの色を変更するようにしています。
 
 <br>
 
-![](img/image1-19.png)
+![](img/image2-10.png)
 
-コードを保存したらUnityに戻り、GameObjectにVRControllerスクリプトをドラッグ&ドロップでアタッチしてください。
+コードを書き終えたら保存し、Unityに戻ります。
 
-そしてGameObjectのVRControllerの項目のPlayerの部分にヒエラルキーからPlayerを、MainCameraの項目にPlayerの子要素のCameraをドラッグ&ドロップして入れてください。
+そしてヒエラルキーウィンドウで新規で空のオブジェクトを作成し、今作成した「ButtonController」スクリプトをアタッチしてください。
 
-<br>
-
-![](img/image1-20.png)
-
-次にSphereのインスペクターウィンドウから「Teleport」という名前のTagを新規で作成し、スフィアにつけてください。  
-そしてそのスフィアを部屋の任意の場所に複製し、配置します。
-
-
-これでポインター（視点）がスフィアと重なったタイミングでタイマーが動き、タイマーが２以上になった場合そこへテレポートするようになります。
-
-こちらを保存して実行してみましょう。
-
-画面に表示されている白い点をスフィアに一定時間合わせるとその場所にテレポートできているかと思います。
+そしてButtonControllerの空の項目の部分に該当するオブジェクトをドラッグ&ドロップで入れてあげます。
 
 <br>
 
-## 終了ポイントの作成
+![](img/image2-11.png)
 
-テレポートは完了したので、次はアプリケーションを終了させるオブジェクトを追加します。
-
-![](img/image1-21.png)
-
-まずは新規でCubeを作成し、名前を「Quit」としてください。  
-次にそのCubeを任意の場所に配置してください。大きさも自由に変更してもらって構いません。
-
-そしてMaterialを追加し、任意の色にします。
-
-最後に「Quit」という新規タグを作成しこちらのCubeにつけてください。
+そしてButtonのタグの部分に新規で「StartButton」という名前のタグを作成し、設定してください。
 
 <br>
 
-次にVRControllerをVisualStudioで開き、コードを以下のように変更してください。
+前回まではこれで準備は完了だったのですが、今回はUIパーツにRayCast（視線）を当ててスクリプトを実行させるのでもうひと手間かかります。
 
-```c#
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+<br>
 
-public class VRController : MonoBehaviour
-{
-    public GameObject player;
-    public Camera mainCamera;
-    private float timeCount;
-    void Update()
-    {
-        RaycastHit hitObject;
-        Ray ray = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
-        if (Physics.Raycast(ray, out hitObject))
-        {
-            if (hitObject.collider.CompareTag("Teleport"))
-            {
-                timeCount += 0.01f;
-                if (timeCount > 2f)
-                {
-                    player.transform.position = new Vector3(hitObject.point.x, player.transform.position.y, hitObject.point.z);
-                    timeCount = 0f;
-                }
-            }
-            else
-            {
-                timeCount = 0f;
-            }
-            if (hitObject.collider.CompareTag("Quit"))
-            {
-                Application.Quit();
-            }
-        }
-    }
-}
-```
+![](img/image2-12.png)
+
+ヒエラルキーでButtonを選択し、インスペクターからAddComponentでBoxColliderを追加してください。
+
+そしてBoxColliderのサイズをButtonと同じにします。
+
+これでボタン全体をBoxColliderで覆うことができました。
+
+ボタンにBoxColliderを付けた理由は、RayCastで視線とボタンの衝突判定を取得するためです。
+
+<br>
+
+![](img/image2-13.png)
+
+同様にPanelにもBoxColliderをつけて同じ大きさにしてください。
+
+PanelにもBoxColliderを付けた理由は視線をボタンから外したタイミングでタイマーとボタン・テキストのカラーを変更するためです。
 
 
 <br>
 
-コードを変更したら保存してunityに戻りましょう。
+![](img/image2-14.png)
 
-カメラを新規で追加したのでPostProcessingが有効になっていないので、VR用のカメラの方にもPostProcessingLayerを追加してください。
+ここまでできたら保存してUnityを実行してみましょう。
 
+視点がボタンと重なったタイミングでボタンとテキストの色が変わり、視線を外すとボタンとテキストの色が元に戻るかと思います。
 
-<br>
-
-## アプリケーションをモバイルにビルドする
-
-![](img/image1-23.png)
-
-ここまでできたら実際にモバイル端末にアプリケーションをビルドしてみましょう。
-
-ScenesInBuildで現在のシーンを登録し、PlatformがAndroidであることを確認し右下の「Build」をクリックしてください。
-
-ファイル名や保存場所を聞かれるので任意の名前・保存場所を選択し実行してください。
-
-プロジェクトによっては少し時間がかかってしまいますがしばらく待っていると「(ファイル名).apk」というファイルが書き出されると思います。
+また、ボタンに視線を一定時間合わせておくとVR空間へ画面遷移しているかと思います。
 
 <br>
 
-### APKファイルをAndroidデバイスへインストールする
+## 画面遷移にフェードインのアニメーションを追加する
 
-最後にこちらのapkファイルをAndroidデバイスへインストールしましょう。
+機能としては実装できたのですが、急に画面遷移するとユーザーは驚いてしまいます。
 
-インストール方法は色々あるのですが、メールで添付したり、GoogleDriveやDropBox等に入れてモバイルからダウンロードしたり、PCから直接コードを繋いでインストールする方法もあります。
+ですので、ブラックアウトでフェードイン・フェードアウトするアニメーションを追加してみましょう。
 
-一番やりやすい方法でチャレンジしてみましょう。
+フェードインの簡単なアニメーションは[こちら](https://github.com/naichilab/Unity-FadeManager/blob/master/README.ja.md)のパッケージを利用すると簡単に実装できます。
 
-また、Android端末にGooglePlayStoreを通さないでアプリをインストールするには端末を開発者モードにする必要があります。
 
-開発者モードにする方法については[こちら](https://appllio.com/android-development-mode-settings)を確認してください。
 
 <br>
-
-![](img/image1-24.png)
-
-無事インストールが完了すると、このようにモバイルでVRアプリケーションを実行できるようになっているかと思います。
-
-実際に動かしてみると開発中には見つからなかったバグや修正したほうがいい箇所なども見つかるので一度ビルドしたら終わりではなく、何度も実機で試してはUnityに戻って修正を繰り返してクオリティの高いアプリケーションにしていきましょう。
